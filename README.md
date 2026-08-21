@@ -11,26 +11,32 @@ than anything inferred from a page.
 ## How it fits together
 
 ```
-Browser  ──►  Next.js (app/, components/, lib/)      the UI, filtering, grouping, export
-              │
-              └─►  /api/store      ─┐
-                   /api/catalogue  ─┴─►  scraper_agent   the scraping core, installed from
-                     Python Functions                    the source repo via requirements.txt
+                    vercel.json  ──  two services, one domain
+                         │
+Browser  ──►  /(.*)   ──►  web service      web/       Next.js: UI, filtering, export
+         └──►  /api/(.*) ──►  api service   backend/   WSGI app over scraper_agent
 ```
+
+`backend/main.py` is a plain WSGI application — no web framework, since the API is two GET
+routes. It is a **service** rather than file-based functions under `api/` because a project
+with a JavaScript framework preset does not build root `api/*.py` at all: Next.js owns the
+routing, the Python is never turned into functions, and `/api/store` quietly returns the
+frontend's HTML. That failure is silent at build time, which is what makes it worth writing
+down.
 
 The scraping is **not** reimplemented here. `requirements.txt` installs `scraper_agent` straight
 from its own repository, so this deployment runs the same code as that project's CLI and
 Streamlit app, and picks up fixes there on its next build.
 
-Filtering and grouping *are* ported, in `lib/catalogue.ts`, because they have to run in the
-browser — that is what makes narrowing 2,800 rows feel instant. `lib/catalogue.test.ts` mirrors
+Filtering and grouping *are* ported, in `web/lib/catalogue.ts`, because they have to run in the
+browser — that is what makes narrowing 2,800 rows feel instant. `web/lib/catalogue.test.ts` mirrors
 the Python suite's cases so the two implementations are held to the same behaviour.
 
 ### Why the catalogue arrives one page at a time
 
 Vercel caps a function response at 4.5 MB, and a mid-sized store is thousands of variant rows.
 The browser therefore requests one page per call and accumulates. That also means real progress
-instead of a spinner, and it moves the loop guard client-side: `lib/useCatalogue.ts` stops when
+instead of a spinner, and it moves the loop guard client-side: `web/lib/useCatalogue.ts` stops when
 a page is empty, when it yields no product IDs it has not already seen (some stores ignore
 `?page` and replay page 1 forever), when a page comes back short, at the user's product cap, or
 at a hard ceiling of 200 pages.
@@ -40,19 +46,22 @@ at a hard ceiling of 200 pages.
 `next dev` cannot run Python, so the API runs beside it in two terminals:
 
 ```bash
-npm install
+# backend, in one terminal
+cd backend
 python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
+.venv/bin/python main.py          # :5328
 
-npm run dev:api   # Python API on :5328
-npm run dev       # Next.js on :3000, proxying /api/* to it
+# frontend, in another
+cd web
+npm install
+npm run dev                       # :3000, rewrites /api/* to :5328 in dev only
 ```
 
-In production no proxy is involved: Vercel serves `api/*.py` at `/api/*` itself.
+In production there is no proxy: Vercel routes `/api/*` to the backend service itself.
 
 ```bash
-npm test          # port-equivalence tests against the Python suite's cases
-npm run lint
-npm run build
+cd web && npm test    # port-equivalence tests against the Python suite's cases
+cd web && npm run lint && npm run build
 ```
 
 ## API

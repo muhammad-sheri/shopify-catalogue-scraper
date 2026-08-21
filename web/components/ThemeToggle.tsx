@@ -52,7 +52,11 @@ export function ThemeToggle() {
     <button
       onClick={() => apply(ORDER[(ORDER.indexOf(choice) + 1) % ORDER.length])}
       className="inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-[12px] font-medium capitalize transition-colors hover:brightness-125"
-      style={{ background: "rgba(255,255,255,.12)", color: "var(--hero-text)" }}
+      style={{
+        background: "var(--hero-chip)",
+        border: "1px solid var(--hero-edge)",
+        color: "var(--hero-text)",
+      }}
       title={`Theme: ${choice}. Click to change.`}
     >
       <Icon size={14} aria-hidden />

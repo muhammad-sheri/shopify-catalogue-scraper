@@ -1,0 +1,12 @@
+# The scraping core, installed straight from the source repo rather than copied.
+# This is the same package the Streamlit app and the CLI run, so a fix there
+# reaches this deployment on its next build with no code change here.
+#
+# Pinned to a branch on purpose: main is the released line. Swap @main for a
+# tag or a commit SHA to freeze this deployment against upstream changes.
+web-scraping-ai-agent @ git+https://github.com/muhammad-sheri/web-scraping-ai-agent@main
+
+# Bot-protected storefronts. scraper_agent.http escalates to a real browser's
+# TLS fingerprint when a plain request looks blocked, but only if this is
+# installed; without it those stores surface as errors instead of catalogues.
+curl_cffi>=0.7,<1.0

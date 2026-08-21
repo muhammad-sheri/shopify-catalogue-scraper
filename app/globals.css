@@ -1,26 +1,225 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/*
+ * Design tokens carried over from the Streamlit app's ui.py (LIGHT/DARK) and
+ * .streamlit/config.toml, so this reads as the same product rather than a
+ * different one that happens to do the same job. The indigo, the semantic
+ * green/red/orange and the hero gradient are the originals.
+ *
+ * Three theme states, because the viewer has three: an explicit light choice,
+ * an explicit dark choice, and "follow the system", which sets no attribute.
+ * Every colour is defined on bare :root first so nothing depends on a media
+ * query having matched.
+ */
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+:root {
+  --canvas: #e9e7f6;
+  --surface: #ffffff;
+  --surface-2: #f3f3f8;
+  --text: #16181f;
+  --muted: #565b70;
+  --border: #d8d5ea;
+  --border-soft: #dfdcef;
+  --primary: #5b5bd6;
+  --primary-hi: #7c6bf0;
+  --on-primary: #ffffff;
+  --tint: rgba(91, 91, 214, 0.06);
+  --tint-hi: rgba(91, 91, 214, 0.13);
+  --hero-from: #1e1b4b;
+  --hero-to: #4338ca;
+  --hero-text: #eef0ff;
+  --hero-muted: #b9beea;
+  --green: #0e9f6e;
+  --green-text: #05603a;
+  --green-bg: #e6f6ef;
+  --red: #dc2626;
+  --red-text: #991b1b;
+  --red-bg: #fdecec;
+  --orange: #d97706;
+  --orange-text: #92400e;
+  --orange-bg: #fef3c7;
+  --shadow: 0 1px 2px rgba(24, 20, 60, 0.06), 0 10px 28px -14px rgba(24, 20, 60, 0.26);
+  --shadow-lg: 0 2px 4px rgba(24, 20, 60, 0.08), 0 22px 48px -20px rgba(24, 20, 60, 0.4);
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  :root:not([data-theme="light"]) {
+    --canvas: #08080f;
+    --surface: #15161f;
+    --surface-2: #1a1d28;
+    --text: #e6e8f0;
+    --muted: #9096ac;
+    --border: #272a3a;
+    --border-soft: #1e2130;
+    --primary: #8b8bf5;
+    --primary-hi: #a5a0ff;
+    --on-primary: #0b0c12;
+    --tint: rgba(139, 139, 245, 0.08);
+    --tint-hi: rgba(139, 139, 245, 0.16);
+    --hero-from: #171634;
+    --hero-to: #2e2a6e;
+    --hero-muted: #a7add8;
+    --green: #34d399;
+    --green-text: #6ee7b7;
+    --green-bg: #0c2b22;
+    --red: #f87171;
+    --red-text: #fca5a5;
+    --red-bg: #341418;
+    --orange: #fbbf24;
+    --orange-text: #fcd34d;
+    --orange-bg: #2e2110;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px -12px rgba(0, 0, 0, 0.6);
+    --shadow-lg: 0 1px 2px rgba(0, 0, 0, 0.5), 0 18px 40px -20px rgba(0, 0, 0, 0.8);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+:root[data-theme="dark"] {
+  --canvas: #08080f;
+  --surface: #15161f;
+  --surface-2: #1a1d28;
+  --text: #e6e8f0;
+  --muted: #9096ac;
+  --border: #272a3a;
+  --border-soft: #1e2130;
+  --primary: #8b8bf5;
+  --primary-hi: #a5a0ff;
+  --on-primary: #0b0c12;
+  --tint: rgba(139, 139, 245, 0.08);
+  --tint-hi: rgba(139, 139, 245, 0.16);
+  --hero-from: #171634;
+  --hero-to: #2e2a6e;
+  --hero-muted: #a7add8;
+  --green: #34d399;
+  --green-text: #6ee7b7;
+  --green-bg: #0c2b22;
+  --red: #f87171;
+  --red-text: #fca5a5;
+  --red-bg: #341418;
+  --orange: #fbbf24;
+  --orange-text: #fcd34d;
+  --orange-bg: #2e2110;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px -12px rgba(0, 0, 0, 0.6);
+  --shadow-lg: 0 1px 2px rgba(0, 0, 0, 0.5), 0 18px 40px -20px rgba(0, 0, 0, 0.8);
 }
+
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ink: var(--text);
+  --color-muted: var(--muted);
+  --color-edge: var(--border);
+  --color-edge-soft: var(--border-soft);
+  --color-primary: var(--primary);
+  --color-primary-hi: var(--primary-hi);
+  --color-on-primary: var(--on-primary);
+  --color-tint: var(--tint);
+  --color-tint-hi: var(--tint-hi);
+  --color-green: var(--green);
+  --color-green-text: var(--green-text);
+  --color-green-bg: var(--green-bg);
+  --color-red: var(--red);
+  --color-red-text: var(--red-text);
+  --color-red-bg: var(--red-bg);
+  --color-orange: var(--orange);
+  --color-orange-text: var(--orange-text);
+  --color-orange-bg: var(--orange-bg);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-mono-face), ui-monospace, SFMono-Regular, Menlo, monospace;
+  --shadow-card: var(--shadow);
+  --shadow-float: var(--shadow-lg);
+  --radius-card: 0.9rem;
+}
+
+html {
+  color-scheme: light dark;
+}
+
+:root[data-theme="light"] { color-scheme: light; }
+:root[data-theme="dark"] { color-scheme: dark; }
+
+body {
+  background: var(--canvas);
+  color: var(--text);
+  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Tabular numerals everywhere a figure sits in a column, so prices and counts
+   line up on the decimal instead of drifting with the glyph widths. */
+.tnum {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+/* The table's own scroll container; the page body must never scroll sideways. */
+.scroll-x {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+}
+
+::-webkit-scrollbar { width: 11px; height: 11px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 99px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover { background-clip: content-box; background-color: var(--muted); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/*
+ * Dual-thumb price slider: two native range inputs stacked on one track.
+ * Native inputs rather than a custom widget so keyboard control, focus rings
+ * and screen-reader semantics come for free. The input itself ignores pointer
+ * events so clicks reach whichever thumb is nearest; the thumbs opt back in.
+ */
+.range-input {
+  -webkit-appearance: none;
+  appearance: none;
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  width: 100%;
+  height: 1.5rem;
+  margin: 0;
+  background: transparent;
+  pointer-events: none;
+}
+.range-input:focus { outline: none; }
+
+.range-input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  pointer-events: auto;
+  width: 1.05rem;
+  height: 1.05rem;
+  border-radius: 999px;
+  background: var(--surface);
+  border: 2px solid var(--primary);
+  box-shadow: var(--shadow);
+  cursor: grab;
+}
+.range-input::-webkit-slider-thumb:active { cursor: grabbing; }
+.range-input:focus-visible::-webkit-slider-thumb {
+  box-shadow: 0 0 0 3px var(--tint-hi);
+}
+
+.range-input::-moz-range-thumb {
+  pointer-events: auto;
+  width: 1.05rem;
+  height: 1.05rem;
+  border-radius: 999px;
+  background: var(--surface);
+  border: 2px solid var(--primary);
+  box-shadow: var(--shadow);
+  cursor: grab;
+}
+.range-input::-moz-range-track { background: transparent; }

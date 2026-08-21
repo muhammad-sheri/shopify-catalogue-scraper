@@ -58,7 +58,7 @@ export function Workspace() {
   const visible = useMemo(() => filterRows(catalogue.rows, filters), [catalogue.rows, filters]);
 
   return (
-    <div className="mx-auto flex max-w-6xl flex-col gap-4 px-5 py-6 sm:px-8">
+    <div className="relative z-10 mx-auto -mt-20 flex max-w-6xl flex-col gap-4 px-5 pb-6 pt-0 sm:px-8">
       <ScrapeForm
         busy={busy}
         onRun={(url, max) => {

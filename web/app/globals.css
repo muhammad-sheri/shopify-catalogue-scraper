@@ -41,11 +41,13 @@
   --hero-chip: rgba(255, 255, 255, 0.07);
   --hero-chip-hi: rgba(255, 255, 255, 0.13);
   --hero-edge: rgba(255, 255, 255, 0.1);
+  --hero-panel: rgba(255, 255, 255, 0.04);
+  --hero-panel-edge: rgba(255, 255, 255, 0.11);
   --hero-dot: #4ade80;
   /* Two low-opacity lights that give the slab depth without an image. Kept
      close to the accent so the hero and the buttons share one hue. */
-  --hero-glow-a: rgba(47, 91, 255, 0.34);
-  --hero-glow-b: rgba(255, 235, 200, 0.08);
+  --hero-glow-a: rgba(47, 91, 255, 0.30);
+  --hero-glow-b: rgba(255, 226, 183, 0.07);
   --green: #0f8a5f;
   --green-text: #0a5c40;
   --green-bg: #e4f2ea;
@@ -82,6 +84,8 @@
     --hero-chip: rgba(255, 255, 255, 0.06);
     --hero-chip-hi: rgba(255, 255, 255, 0.11);
     --hero-edge: rgba(255, 255, 255, 0.08);
+    --hero-panel: rgba(255, 255, 255, 0.035);
+    --hero-panel-edge: rgba(255, 255, 255, 0.09);
     --hero-dot: #3dd68c;
     --hero-glow-a: rgba(47, 91, 255, 0.26);
     --hero-glow-b: rgba(255, 235, 200, 0.05);
@@ -119,6 +123,8 @@
   --hero-chip: rgba(255, 255, 255, 0.06);
   --hero-chip-hi: rgba(255, 255, 255, 0.11);
   --hero-edge: rgba(255, 255, 255, 0.08);
+  --hero-panel: rgba(255, 255, 255, 0.035);
+  --hero-panel-edge: rgba(255, 255, 255, 0.09);
   --hero-dot: #3dd68c;
   --hero-glow-a: rgba(47, 91, 255, 0.26);
   --hero-glow-b: rgba(255, 235, 200, 0.05);

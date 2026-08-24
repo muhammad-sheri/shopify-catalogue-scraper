@@ -81,7 +81,7 @@ export function Workspace() {
           title={`Fetching page ${catalogue.progress.page || 1}…`}
         >
           <span className="tnum">
-            {catalogue.progress.products.toLocaleString("en-US")} products ·{" "}
+            {catalogue.progress.products.toLocaleString("en-US")} products,{" "}
             {catalogue.progress.rows.toLocaleString("en-US")} variant rows so far
           </span>
         </Notice>
@@ -131,7 +131,7 @@ export function Workspace() {
             <p className="text-[12.5px] text-muted">
               {catalogue.store?.meta.name ? (
                 <>
-                  <span className="font-semibold text-ink">{catalogue.store.meta.name}</span> ·{" "}
+                  <span className="font-semibold text-ink">{catalogue.store.meta.name}</span>{", "}
                 </>
               ) : null}
               {catalogue.store?.url}

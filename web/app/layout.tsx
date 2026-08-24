@@ -8,7 +8,7 @@ const mono = JetBrains_Mono({ variable: "--font-mono-face", subsets: ["latin"] }
 export const metadata: Metadata = {
   title: "Shopify Catalogue Scraper",
   description:
-    "Point it at any Shopify store and get the whole catalogue as structured rows — one per variant, with the store's own SKUs, prices and stock flags.",
+    "Point it at any Shopify store and get the whole catalogue as structured rows, one per variant, with the store's own SKUs, prices and stock flags.",
 };
 
 /**

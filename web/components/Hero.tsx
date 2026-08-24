@@ -11,7 +11,7 @@ const GITHUB_URL = "https://github.com/muhammad-sheri/web-scraping-ai-agent";
 const GRAIN =
   "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")";
 
-const FEATURES = ["Exact store data", "Every size & colour", "Filter · group · export"];
+const FEATURES = ["Exact store data", "Every size & colour", "Filter, group, export"];
 
 /*
  * An illustration of the output, not real data — it balances the headline
@@ -84,7 +84,7 @@ function OutputPreview() {
         className="px-3.5 py-2.5 font-mono text-[10.5px]"
         style={{ borderTop: "1px solid var(--hero-panel-edge)", color: "var(--hero-muted)" }}
       >
-        <span className="tnum" style={{ color: "var(--hero-text)" }}>2,481</span> variant rows ·{" "}
+        <span className="tnum" style={{ color: "var(--hero-text)" }}>2,481</span> variant rows from{" "}
         <span className="tnum">412</span> products
       </div>
     </div>
@@ -125,24 +125,7 @@ export function Hero() {
       />
 
       <div className="relative mx-auto max-w-6xl px-5 sm:px-8">
-        <div className="flex items-center justify-between gap-4">
-          <span
-            className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-semibold tracking-wide"
-            style={{
-              background: "var(--hero-chip)",
-              border: "1px solid var(--hero-edge)",
-              color: "var(--hero-text)",
-            }}
-          >
-            <span className="relative flex size-1.5" aria-hidden>
-              <span
-                className="absolute inline-flex size-full animate-ping rounded-full opacity-70"
-                style={{ background: "var(--hero-dot)" }}
-              />
-              <span className="relative inline-flex size-1.5 rounded-full" style={{ background: "var(--hero-dot)" }} />
-            </span>
-            No API key · $0 per run
-          </span>
+        <div className="flex items-center justify-end gap-4">
           <ThemeToggle />
         </div>
 
@@ -157,7 +140,7 @@ export function Hero() {
               className="mt-5 max-w-lg text-[15px] leading-relaxed sm:text-[16.5px]"
               style={{ color: "var(--hero-muted)" }}
             >
-              Point it at any Shopify store and get the whole catalogue as structured rows — one per
+              Point it at any Shopify store and get the whole catalogue as structured rows, one per
               variant, carrying the store&rsquo;s own SKUs, prices and stock flags.
             </p>
 

@@ -247,7 +247,7 @@ function GroupedRow({
       <div className="min-w-0 flex-1">
         <div className="truncate text-[13.5px] font-semibold">{group.title ?? "Untitled"}</div>
         <div className="truncate text-[11.5px] text-muted">
-          {[group.vendor, group.product_type].filter(Boolean).join(" · ") || "—"}
+          {[group.vendor, group.product_type].filter(Boolean).join(", ") || "—"}
         </div>
       </div>
       <div className="hidden w-24 shrink-0 sm:block">
